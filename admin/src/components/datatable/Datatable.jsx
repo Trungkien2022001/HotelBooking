@@ -7,22 +7,24 @@ import useFetch from "../../hooks/useFetch"
 import axios from "axios";
 
 const Datatable = ({columns}) => {
-
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const [list, setList] = useState();
   const { data, loading, error } = useFetch(`/${path}`);
-  console.log( { data, loading, error })
-  console.log(path);
+  console.log("vừa vào đây");
+  console.log( data, path)
   useEffect(() => {
+    console.log("đổi data")
     setList(data);
-  }, [path]);
+  }, [data]);
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(`/${path}/${id}`);
       setList(list.filter((item) => item._id !== id));
-    } catch (err) {}
+    } catch (err) {
+      console.log(err)
+    }
   };
   const actionColumn = [
     {
